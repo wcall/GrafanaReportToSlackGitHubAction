@@ -26,7 +26,7 @@ jobs:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_CHANNEL_ID: ${{ vars.SLACK_CHANNEL_ID }}
         run: |
-          curl -F file=@github-actions-example/panel.png \
+          curl -F file=@panel.png \
                -F "initial_comment=SLO panel image" \
                -F "filename=panel.png" \
                -F channels=$SLACK_CHANNEL_ID \
