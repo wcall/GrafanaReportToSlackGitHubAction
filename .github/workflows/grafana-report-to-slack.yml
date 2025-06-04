@@ -36,6 +36,7 @@ jobs:
           echo "file_id=$(echo $response | jq -r '.file_id')" >> $GITHUB_OUTPUT
           echo "Upload URL: ${{ steps.get_upload_url.outputs.upload_url }}"
           echo "File ID: ${{ steps.get_upload_url.outputs.file_id }}"
+          echo "Response: $response"
         working-directory: github-actions-example
 
       - name: Upload Image to Slack
@@ -43,7 +44,6 @@ jobs:
           echo "Upload URL: ${{ steps.get_upload_url.outputs.upload_url }}"
           curl -s -X POST \
             -F file=@panel.png \
-            -F fileid="${{ steps.get_upload_url.outputs.file_id }}" \
             "${{ steps.get_upload_url.outputs.upload_url }}"
         working-directory: github-actions-example
 
