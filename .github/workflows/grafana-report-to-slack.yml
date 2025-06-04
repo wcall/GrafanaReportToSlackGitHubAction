@@ -16,7 +16,7 @@ jobs:
           curl -s -H "Authorization: Bearer ${{ secrets.GRAFANA_SERVICEACCOUNT_TOKEN }}" \
             -o panel.png \
             "https://${{ vars.GRAFANA_INSTANCE }}.grafana.net/render/d-solo/${{ vars.GRAFANA_DASHBOARD_ID }}?panelId=1&width=1000&height=500&tz=UTC"
-        working-directory: ./github-actions-example 
+        working-directory: github-actions-example
 
       - name: Upload Image to Slack
         env:
@@ -34,4 +34,3 @@ jobs:
               "text": "Build image report"
             }' \
             $SLACK_WEBHOOK_URL
-        working-directory: ./github-actions-example 
