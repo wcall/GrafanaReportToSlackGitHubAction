@@ -22,6 +22,7 @@ jobs:
           base64_image=$(base64 -w 0 panel.png)
           cat <<EOF > slack_payload.json
           {
+            "text": "Scheduled Grafana Report",
             "blocks": [
               {
                 "type": "section",
