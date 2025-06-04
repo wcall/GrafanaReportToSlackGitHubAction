@@ -23,17 +23,11 @@ jobs:
 
       - name: Upload Image to Slack
         env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
+          SLACK_CHANNEL_ID: ${{ vars.SLACK_CHANNEL_ID }}
         run: |
-          curl -X POST -H 'Content-type: application/json' \
-            --data '{
-              "blocks": [
-                {
-                  "type": "image",
-                  "image_url": "https://raw.githubusercontent.com/wcall/GrafanaReportToSlackGitHubAction/refs/heads/main/github-actions-example/panel.png",
-                  "alt_text": "Build status"
-                }
-              ],
-              "text": "Build image report"
-            }' \
-            $SLACK_WEBHOOK_URL
+          curl -F file=@github-actions-example/panel.png \
+               -F "initial_comment=SLO panel image" \
+               -F channels=$SLACK_CHANNEL_ID \
+               -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+               https://slack.com/api/files.upload
