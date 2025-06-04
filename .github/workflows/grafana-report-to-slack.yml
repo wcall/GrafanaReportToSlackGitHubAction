@@ -17,13 +17,6 @@ jobs:
             -o panel.png \
             "https://${{ vars.GRAFANA_INSTANCE }}.grafana.net/render/d-solo/${{ vars.GRAFANA_DASHBOARD_ID }}?panelId=1&width=1000&height=500&tz=UTC"
 
-      - name: Upload Image to Slack
-        uses: slackapi/slack-github-action@v1.25.0
-        with:
-          payload-file-path: ./slack_payload.json
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-
       - name: Create Slack Payload JSON
         run: |
           base64_image=$(base64 -w 0 panel.png)
@@ -45,3 +38,10 @@ jobs:
             ]
           }
           EOF
+
+      - name: Upload Image to Slack
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          payload-file-path: ./slack_payload.json
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
