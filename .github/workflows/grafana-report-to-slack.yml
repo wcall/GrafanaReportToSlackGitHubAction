@@ -10,6 +10,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Ensure github-actions-example folder exists
+        run: mkdir -p github-actions-example
+
       - name: Render Grafana Dashboard Panel
         id: render
         run: |
