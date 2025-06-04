@@ -21,7 +21,7 @@ jobs:
             "https://${{ vars.GRAFANA_INSTANCE }}.grafana.net/render/d-solo/${{ vars.GRAFANA_DASHBOARD_ID }}?panelId=1&width=1000&height=500&tz=UTC"
         working-directory: github-actions-example
 
-      - name: Upload Image to Slack (External Upload)
+      - name: Get Slack upload URL
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
           SLACK_CHANNEL_ID: ${{ vars.SLACK_CHANNEL_ID }}
@@ -30,7 +30,7 @@ jobs:
           response=$(curl -s -X POST "https://slack.com/api/files.getUploadURLExternal" \
             -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
             -H "Content-Type: application/json" \
-            --data '{"filename":"panel.png","length":'$(stat -c%s panel.png)',"channels":["'"$SLACK_CHANNEL_ID"'"]}')
+            -d '{"filename":"test_image.png","channels":["$SLACK_CHANNEL_ID"]}')
           echo "upload_url=$(echo $response | jq -r '.upload_url')" >> $GITHUB_OUTPUT
           echo "file_id=$(echo $response | jq -r '.file_id')" >> $GITHUB_OUTPUT
         working-directory: github-actions-example
