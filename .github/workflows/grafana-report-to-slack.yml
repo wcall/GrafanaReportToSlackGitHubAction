@@ -30,6 +30,6 @@ jobs:
                -F "initial_comment=SLO panel image" \
                -F "filename=panel.png" \
                -F channels=$SLACK_CHANNEL_ID \
-               -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
+               -F token=$SLACK_BOT_TOKEN \
                https://slack.com/api/files.upload
         working-directory: github-actions-example
