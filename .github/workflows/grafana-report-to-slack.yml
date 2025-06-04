@@ -17,24 +17,33 @@ jobs:
             -o panel.png \
             "https://${{ vars.GRAFANA_INSTANCE }}.grafana.net/render/d-solo/${{ vars.GRAFANA_DASHBOARD_ID }}?panelId=1&width=1000&height=500&tz=UTC"
 
+      - name: Check if Image was Created
+        id: check_image
+        run: |
+          if [ -f "panel.png" ]; then
+            echo "image_created=true" >> $GITHUB_OUTPUT
+          else
+            echo "image_created=false" >> $GITHUB_OUTPUT
+          fi
+
+
+
       - name: Create Slack Payload JSON
         run: |
           base64_image=$(base64 -w 0 panel.png)
+          if [ -f $base64_image ]; then
+            echo "base64_image_created=true" >> $GITHUB_OUTPUT
+          else
+            echo "base64_image_created=false" >> $GITHUB_OUTPUT
+          fi
           cat <<EOF > slack_payload.json
           {
             "text": "Scheduled Grafana Report",
             "blocks": [
               {
-                "type": "section",
-                "text": {
-                  "type": "mrkdwn",
-                  "text": "*Scheduled Grafana Report (every 6h)*"
-                }
-              },
-              {
                 "type": "image",
                 "image_url": "data:image/png;base64,$base64_image",
-                "alt_text": "Grafana Report"
+                "alt_text": "SLO Panel Image"
               }
             ]
           }
