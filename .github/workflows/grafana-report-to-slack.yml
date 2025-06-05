@@ -42,8 +42,8 @@ jobs:
       - name: Output panel.png permalink
         id: get_permalink_url
         run: |
-          permalink="https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/github-actions-example/panel.png"
-          echo "Permalink: https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/github-actions-example/panel.png"
+          permalink="https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/${GITHUB_REF_NAME}/refs/heads/main/github-actions-example/panel.png"
+          echo "Permalink: $permalink"
           echo "permalink=$permalink" >> $GITHUB_OUTPUT
           echo "Permalink URL: $permalink"
 
