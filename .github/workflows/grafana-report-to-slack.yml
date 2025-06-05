@@ -16,8 +16,15 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Ensure github-actions-example folder exists
-        run: mkdir -p github-actions-example
+      - name: Ensure github-actions-example folder exists but is empty
+        run: | 
+          mkdir -p github-actions-example
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git rm -rf github-actions-example/* || true # Remove any existing files in the folder
+          git commit -m "Ensure github-actions-example folder is empty" || echo "No changes to commit"
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/wcall/GrafanaReportToSlackGitHubAction.git
+          git push origin HEAD
 
       - name: Render Grafana Dashboard Panel
         id: render
