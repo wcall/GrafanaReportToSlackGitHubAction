@@ -51,17 +51,11 @@ jobs:
 
       - name: Send Slack Message via Webhook
         uses: rtCamp/action-slack-notify@v2
-        with:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-          SLACK_CUSTOM_PAYLOAD: |
-            {
-              "channel": "#demos",
-              "text": "Checkout - Success Rate SLO's Remaining Error Budget",
-              "attachments": [
-                {
-                  "fallback": "View the panel image",
-                  "image_url": "${{ steps.get_permalink_url.outputs.permalink_url }}",
-                  "text": "Here is the panel image for Checkout - Success Rate SLO's Remaining Error Budget:"
-                }
-              ]
-            }
+        env:
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL }}
+          SLACK_CHANNEL: 'demos'
+          SLACK_USERNAME: 'wcall'
+          SLACK_ICON_EMOJI: ':grafana:'
+          SLACK_TITLE: 'Checkout - Success Rate SLO Remaining Error Budget'
+          SLACK_MESSAGE: 'Here is the panel image for Checkout - Success Rate SLO's Remaining Error Budget:'
+          SLACK_FILE_UPLOAD: github-actions-example/panel.png
