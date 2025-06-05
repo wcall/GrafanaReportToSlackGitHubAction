@@ -60,7 +60,6 @@ jobs:
           SLACK_TITLE: 'Checkout - Success Rate SLO Remaining Error Budget'
           SLACK_MESSAGE: "Here is the panel image for Checkout - Success Rate SLO's Remaining Error Budget:"
           SLACK_FILE_UPLOAD: github-actions-example/panel.png
-        with:
           SLACK_CUSTOM_PAYLOAD: |
             {
               "attachments": [
