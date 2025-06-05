@@ -29,10 +29,11 @@ jobs:
         id: get_upload_url
         run: |
           FILESIZE=$(stat -c%s panel.png)
+          echo "File size of panel.png: $FILESIZE bytes"
           response=$(curl -s -X POST "https://slack.com/api/files.getUploadURLExternal" \
             -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
             -H "Content-Type: application/json; charset=utf-8" \
-            -d '{"filename": "panel.png","length": $FILESIZE}')
+            -d "{\"filename\": \"panel.png\",\"length\": $FILESIZE}")
           echo "upload_url=$(echo $response | jq -r '.upload_url')" >> $GITHUB_OUTPUT
           echo "file_id=$(echo $response | jq -r '.file_id')" >> $GITHUB_OUTPUT
           echo "Upload URL: ${{ steps.get_upload_url.outputs.upload_url }}"
