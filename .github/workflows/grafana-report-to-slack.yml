@@ -22,6 +22,7 @@ jobs:
       - name: Render Grafana Dashboard Panel
         id: render
         run: |
+          rm -f panel.png || true # Remove any existing panel.png
           curl -s -H "Authorization: Bearer ${{ secrets.GRAFANA_SERVICEACCOUNT_TOKEN }}" \
             -o panel.png \
             "https://${{ vars.GRAFANA_INSTANCE }}.grafana.net/render/d-solo/${{ vars.GRAFANA_DASHBOARD_ID }}?panelId=${{ vars.GRAFANA_PANEL_ID }}&width=1000&height=500&tz=UTC"
