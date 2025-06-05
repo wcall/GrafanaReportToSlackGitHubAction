@@ -27,9 +27,9 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         run: |
-          FILESIZE=$(stat -c%s github-actions-example/panel.png)
+          FILESIZE=$(stat -c%s panel.png)
           echo "File size of panel.png: $FILESIZE bytes"
-          response=$(curl -s -X POST "https://slack.com/api/files.getUploadURLExternal" \
+          response=$(curl -X POST "https://slack.com/api/files.getUploadURLExternal" \
             -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
             -H "Content-Type: application/json; charset=utf-8" \
             --data-raw '{
