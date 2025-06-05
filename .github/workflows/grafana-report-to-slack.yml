@@ -42,12 +42,11 @@ jobs:
       - name: Output panel.png permalink
         id: get_permalink_url
         run: |
-          permalink="https://github.com/${GITHUB_REPOSITORY}/${GITHUB_REF_NAME}/blob/main/github-actions-example/panel.png?raw=true"
+          permalink_url="https://github.com/${GITHUB_REPOSITORY}/blob/${GITHUB_REF_NAME}/github-actions-example/panel.png?raw=true"
           echo "GITHUB_REPOSITORY: ${GITHUB_REPOSITORY}"
           echo "GITHUB_REF_NAME: ${GITHUB_REF_NAME}"
-          echo "Permalink: $permalink"
-          echo "permalink=$permalink" >> $GITHUB_OUTPUT
-          echo "Permalink URL: ${{ steps.get_permalink_url.outputs.permalink }}"
+          echo "Permalink: $permalink_url"
+          echo "permalink_url=$permalink_url" >> $GITHUB_OUTPUT
 
       - name: Get Slack upload URL
         id: get_upload_url
