@@ -32,8 +32,10 @@ jobs:
           response=$(curl -s -X POST "https://slack.com/api/files.getUploadURLExternal" \
             -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
             -H "Content-Type: application/json; charset=utf-8" \
-            -F filename="@panel.png" \
-            -F length=$FILESIZE)
+            --data-raw '{
+              "filename": "panel.png",
+              "length": '"$FILESIZE"'
+            }')
           echo "Response from Slack API: $response"
           echo "upload_url=$(echo $response | jq -r '.upload_url')" >> $GITHUB_OUTPUT
           echo "file_id=$(echo $response | jq -r '.file_id')" >> $GITHUB_OUTPUT
