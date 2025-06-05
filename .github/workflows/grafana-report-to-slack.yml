@@ -24,7 +24,7 @@ jobs:
         run: |
           curl -s -H "Authorization: Bearer ${{ secrets.GRAFANA_SERVICEACCOUNT_TOKEN }}" \
             -o panel.png \
-            "https://${{ vars.GRAFANA_INSTANCE }}.grafana.net/render/d-solo/${{ vars.GRAFANA_DASHBOARD_ID }}?panelId=1&width=1000&height=500&tz=UTC"
+            "https://${{ vars.GRAFANA_INSTANCE }}.grafana.net/render/d-solo/${{ vars.GRAFANA_DASHBOARD_ID }}?panelId=${{ vars.GRAFANA_PANEL_ID }}&width=1000&height=500&tz=UTC"
           echo "Rendered panel saved as panel.png: $(ls -lh panel.png)"
         working-directory: github-actions-example
 
