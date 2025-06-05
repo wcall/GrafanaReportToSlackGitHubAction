@@ -27,21 +27,22 @@ jobs:
         env:
           SLACK_BOT_TOKEN: ${{ secrets.SLACK_BOT_TOKEN }}
         run: |
-          FILESIZE=$(stat -c%s panel.png)
+          FILESIZE=$(stat -c%s github-actions-example/panel.png)
           echo "File size of panel.png: $FILESIZE bytes"
           response=$(curl -s -X POST "https://slack.com/api/files.getUploadURLExternal" \
             -H "Authorization: Bearer $SLACK_BOT_TOKEN" \
             -H "Content-Type: application/json; charset=utf-8" \
             --data-raw '{
-              "filename": "panel.png",
-              "length": '"$FILESIZE"'
+                "filename": "panel.png",
+                "length": '"$FILESIZE"'
             }')
           echo "Response from Slack API: $response"
-          echo "upload_url=$(echo $response | jq -r '.upload_url')" >> $GITHUB_OUTPUT
-          echo "file_id=$(echo $response | jq -r '.file_id')" >> $GITHUB_OUTPUT
-          echo "Upload URL: ${{ steps.get_upload_url.outputs.upload_url }}"
-          echo "File ID: ${{ steps.get_upload_url.outputs.file_id }}"
-          
+          upload_url=$(echo $response | jq -r '.upload_url')
+          file_id=$(echo $response | jq -r '.file_id')
+          echo "upload_url=$upload_url" >> $GITHUB_OUTPUT
+          echo "file_id=$file_id" >> $GITHUB_OUTPUT
+          echo "Upload URL: $upload_url"
+          echo "File ID: $file_id"
         working-directory: github-actions-example
 
       - name: Upload Image to Slack
