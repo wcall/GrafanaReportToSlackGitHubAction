@@ -36,6 +36,7 @@ See [`.github/workflows/grafana-report-to-slack.yml`](.github/workflows/grafana-
 ### Slack Message Example
 
 The workflow sends a message to Slack with the panel image attached and/or linked using a permalink.
+![Example Slack Message](images/slack_notification_showing_SLO_panel_image.jpg)
 
 ## References
 
